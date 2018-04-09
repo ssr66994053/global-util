@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.global.com.global.common.service.mybatis.ExtraMapper">
+    <!-- ============================================= -->
+    <!-- RESULT MAPS                                   -->
+    <!-- ============================================= -->
+
+    <!-- mapped statement for ExtraMapper.getSysdate -->
+    <select id="COMMON-GET-SYSDATE" resultType="java.util.Date">
+        <![CDATA[
+
+
+			select current_timestamp from dual
+
+
+        ]]>
+    </select>
+
+    <!-- mapped statement for ExtraMapper.getNextSeq -->
+    <insert id="MYSQL-SEQ-NEXTVAL" parameterType="com.global.com.global.common.service.mybatis.ExtraDO">
+        <![CDATA[
+	        insert into sys_seq(name) values (#{name})
+	    ]]>
+        <selectKey resultType="long" order="AFTER" keyProperty="id">
+            <![CDATA[SELECT LAST_INSERT_ID() AS ID ]]>
+        </selectKey>
+    </insert>
+
+    <!-- mapped statement for ExtraMapper.getNextSeq -->
+    <select id="ORACLE-SEQ-NEXTVAL" parameterType="java.util.HashMap" resultType="long">
+		<![CDATA[
+			select ${seq_name}.nextval from dual
+        ]]>
+	</select>
+
+
+</mapper>
